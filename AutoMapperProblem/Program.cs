@@ -8,7 +8,6 @@ public class Program
     static void Main(string[] args)
     {
         var config = new MapperConfiguration(cfg => {
-            cfg.DisableConstructorMapping();
             cfg.AddProfile(new AutoMapperProfile());
             cfg.AddMaps(Assembly.GetExecutingAssembly().GetReferencedAssemblies().Select(x => x.FullName));
         });
@@ -25,22 +24,14 @@ public class Program
         };
         var copy = _mapper.Map<TrainingSetDto>(original);
 
+        var originalHashCode = original.GetHashCode();
+        var copyHashCode = copy.GetHashCode();
+        if (originalHashCode == copyHashCode)
+        {
+            throw new Exception("Copy was done by reference.");
+        }
+
         Console.WriteLine($"original: {original.GetHashCode()}");
         Console.WriteLine($"copy: {copy.GetHashCode()}");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }
