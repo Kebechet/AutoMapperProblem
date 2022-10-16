@@ -11,6 +11,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
+builder.Services.InstallMapper();
+
+builder.Services.AddSingleton<TestingService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
